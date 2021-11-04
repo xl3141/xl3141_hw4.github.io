@@ -1,5 +1,5 @@
 ---
-title: "My personal website"
+title: "Welcome to Xinyuan's personal website!!"
 output: 
   html_document:
     toc: true
@@ -7,13 +7,9 @@ output:
     
 ---
 
-## Welcome to Xinyuan's personal website!!
+# My name is Xinyuan Liu. I am currently an MS student in Biostatistics at Columbia University Mailman School of Public Health. Here is a website where you can learn more about me!
 
-# Here is a link to my linkedin profile page!
-
-* [linkedin](https://www.linkedin.com/in/xinyuan-liu-0175431bb/)
-
-# Here is a page for academic and professional experience
+## Here is a page for academic and professional experience
 
 [professional and academic experience](experience.html)
 
