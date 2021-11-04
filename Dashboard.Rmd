@@ -1,84 +1,78 @@
 ---
-title: "Plotly"
+title: "dashboard"
 output: 
-  html_document:
-    toc: true
-    toc_float: true
- 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
 ---
 
-some plotly examples
-```{r}
+```{r setup, include=FALSE}
+library(flexdashboard)
 library(tidyverse)
-library(p8105.datasets)
 library(ggplot2)
 library(plotly)
+library(httr)
+library(jsonlite)
+library(p8105.datasets)
+data("instacart")
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
 ```
 
-NYC airbnb data
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
 
 ```{r}
-data(nyc_airbnb)
-nyc_airbnb = 
-  nyc_airbnb %>% 
-  mutate(rating = review_scores_location / 2) %>%
-  select(
-    neighbourhood_group, neighbourhood, rating, price, room_type, lat, long) %>%
-  filter(
-    !is.na(rating), 
-    neighbourhood_group == "Manhattan",
-    room_type == "Entire home/apt",
-    price %in% 100:500)
-
-```
-
-## Make a scatterplot
-
-```{r}
-nyc_airbnb %>% 
-   mutate(text_label = str_c("Price: $", price, "\nRating: ", rating)) %>% 
+instacart %>% 
+  filter(add_to_cart_order == "1") %>% 
+  select(add_to_cart_order, department) %>% 
+  group_by(department) %>% 
+  summarize(n_obs = n()) %>% 
+  arrange(desc(n_obs)) %>% 
   plot_ly(
-    x = ~lat, y = ~long, type = "scatter", mode = "markers",
-    color = ~price, text = ~text_label, alpha = .5
-  )
-```
-
-## plotly boxplot
-
-```{r}
-nyc_airbnb %>% 
-  mutate(neighbourhood = fct_reorder(neighbourhood, price)) %>% 
-  plot_ly(y = ~price, color = ~neighbourhood, type = "box", colors = "viridis")
-
-```
-
-## plotly bar chart
-
-```{r}
-nyc_airbnb %>% 
-  count(neighbourhood) %>% 
-  mutate(neighbourhood = fct_reorder(neighbourhood, n)) %>% 
-  plot_ly(
-    x = ~neighbourhood, 
-    y = ~n, 
-    color = ~neighbourhood, 
-    type = "bar", 
+    x = ~department,
+    y = ~n_obs, 
+    color = ~department,
+    type = "bar",
     colors = "viridis"
     )
 ```
 
-## ggplotly
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
 
 ```{r}
-scatter_ggplot = 
-  nyc_airbnb %>%
-  ggplot(aes(x = lat, y = long, color = price)) +
-  geom_point(alpha = 0.25) +
-  coord_cartesian()
-scatter_ggplot
-
-ggplotly(scatter_ggplot)
-
+instacart %>% 
+  filter(department == "beverages") %>% 
+  group_by(order_dow, aisle) %>% 
+  summarize(n_obs = n()) %>% 
+  plot_ly(x = ~order_dow, y = ~n_obs,  color = ~aisle, type = "scatter", mode = "lines+markers", colors = "viridis")
 ```
 
+### Chart C
+
+```{r}
+instacart %>% 
+  filter(reordered == "0", order_dow == "6") %>% 
+  mutate(department = fct_reorder(department, days_since_prior_order)) %>% 
+    plot_ly(y = ~days_since_prior_order, color = ~department, type = "box", colors = "viridis")
+```
 

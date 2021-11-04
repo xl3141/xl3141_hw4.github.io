@@ -1,0 +1,76 @@
+---
+title: "Plotly"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+ 
+---
+
+some plotly examples
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(httr)
+library(jsonlite)
+library(p8105.datasets)
+data("instacart")
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+```
+
+
+
+## Barplot of the number of times that each department is chosen by the customer first
+
+```{r}
+instacart %>% 
+  filter(add_to_cart_order == "1") %>% 
+  select(add_to_cart_order, department) %>% 
+  group_by(department) %>% 
+  summarize(n_obs = n()) %>% 
+  arrange(desc(n_obs)) %>% 
+  plot_ly(
+    x = ~department,
+    y = ~n_obs, 
+    color = ~department,
+    type = "bar",
+    colors = "viridis"
+    )
+```
+
+## line plot
+
+```{r}
+instacart %>% 
+  filter(department == "beverages") %>% 
+  group_by(order_dow, aisle) %>% 
+  summarize(n_obs = n()) %>% 
+  plot_ly(x = ~order_dow, y = ~n_obs,  color = ~aisle, type = "scatter", mode = "lines+markers", colors = "viridis")
+```
+
+## boxplot
+
+```{r}
+instacart %>% 
+  filter(reordered == "0", order_dow == "6") %>% 
+  mutate(department = fct_reorder(department, days_since_prior_order)) %>% 
+    plot_ly(y = ~days_since_prior_order, color = ~department, type = "box", colors = "viridis")
+```
+
+
