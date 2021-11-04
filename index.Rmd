@@ -7,7 +7,7 @@ output:
     
 ---
 
-# My name is Xinyuan Liu. I am currently an MS student in Biostatistics at Columbia University Mailman School of Public Health. Here is a website where you can learn more about me!
+My name is Xinyuan Liu. I am currently an MS student in Biostatistics at Columbia University Mailman School of Public Health. Here is a website where you can learn more about me!
 
 ## Here is a page for academic and professional experience
 

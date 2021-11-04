@@ -34,7 +34,7 @@ scale_fill_discrete = scale_fill_viridis_d
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### The count of times of each department from which the first item is picked
 
 ```{r}
 instacart %>% 
@@ -55,7 +55,7 @@ instacart %>%
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### The number of beverages bought on each day across different aisles
 
 ```{r}
 instacart %>% 
@@ -65,7 +65,7 @@ instacart %>%
   plot_ly(x = ~order_dow, y = ~n_obs,  color = ~aisle, type = "scatter", mode = "markers", colors = "viridis")
 ```
 
-### Chart C
+### the boxplot of days since prior order across different departments on Sunday with no order history
 
 ```{r}
 instacart %>% 
