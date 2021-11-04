@@ -49,7 +49,8 @@ instacart %>%
     color = ~department,
     type = "bar",
     colors = "viridis"
-    )
+    ) %>% 
+  layout(yaxis = list(title = "observation"))
 ```
 
 Column {data-width=350}
@@ -62,7 +63,8 @@ instacart %>%
   filter(department == "beverages") %>% 
   group_by(order_dow, aisle) %>% 
   summarize(n_obs = n()) %>% 
-  plot_ly(x = ~order_dow, y = ~n_obs,  color = ~aisle, type = "scatter", mode = "markers", colors = "viridis")
+  plot_ly(x = ~order_dow, y = ~n_obs,  color = ~aisle, type = "scatter", mode = "markers", colors = "viridis") %>% 
+  layout(yaxis = list(title = "observation"), xaxis = list(title = "the day in a week"))
 ```
 
 ### the boxplot of days since prior order across different departments on Sunday with no order history
@@ -71,6 +73,7 @@ instacart %>%
 instacart %>% 
   filter(reordered == "0", order_dow == "6") %>% 
   mutate(department = fct_reorder(department, days_since_prior_order)) %>% 
-    plot_ly(y = ~days_since_prior_order, color = ~department, type = "box", colors = "viridis")
+  plot_ly(y = ~days_since_prior_order, color = ~department, type = "box", colors = "viridis") %>% 
+  layout(yaxis = list(title = "days since prior order"), xaxis = list(title = "department"))
 ```
 
