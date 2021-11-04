@@ -4,7 +4,7 @@ navbar:
   title: "Home"
   right:
     - text: "linkedin"
-      href: linkedin.html
+      href: https://www.linkedin.com/in/xinyuan-liu-0175431bb/
     - text: "dashboard"
       href: dashboard.html  
     - icon: fa-envelope fa-lg

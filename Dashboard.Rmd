@@ -11,8 +11,6 @@ library(flexdashboard)
 library(tidyverse)
 library(ggplot2)
 library(plotly)
-library(httr)
-library(jsonlite)
 library(p8105.datasets)
 data("instacart")
 knitr::opts_chunk$set(
@@ -64,7 +62,7 @@ instacart %>%
   filter(department == "beverages") %>% 
   group_by(order_dow, aisle) %>% 
   summarize(n_obs = n()) %>% 
-  plot_ly(x = ~order_dow, y = ~n_obs,  color = ~aisle, type = "scatter", mode = "lines+markers", colors = "viridis")
+  plot_ly(x = ~order_dow, y = ~n_obs,  color = ~aisle, type = "scatter", mode = "markers", colors = "viridis")
 ```
 
 ### Chart C
