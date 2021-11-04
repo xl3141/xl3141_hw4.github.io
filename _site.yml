@@ -5,8 +5,8 @@ navbar:
   right:
     - text: "linkedin"
       href: https://www.linkedin.com/in/xinyuan-liu-0175431bb/
-    - text: "dashboard"
-      href: dashboard.html  
+    - text: "Dashboard"
+      href: Dashboard.html  
     - icon: fa-envelope fa-lg
       href: mailto:<xl3141@cumc.columbia.edu>
     - icon: fa-github fa-lg
